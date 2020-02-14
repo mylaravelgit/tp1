@@ -21,4 +21,6 @@
 Route::group('admin', function () {
     Route::rule('/','admin/index/login','get|post');
     Route::rule('register','admin/index/register','get|post');
+    Route::rule('forget','admin/index/forget','get|post');
+    Route::rule('reset','admin/index/reset','post');
 });

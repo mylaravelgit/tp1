@@ -22,14 +22,17 @@ function mailto($to,$title,$content){
         $mail->CharSet ="UTF-8";                     //设定邮件编码
         $mail->SMTPDebug = 0;                        // 调试模式输出
         $mail->isSMTP();                             // 使用SMTP
-        $mail->Host = 'smtp.qq.com';                // SMTP服务器
+        $mail->Host = 'smtp.163.com';                // SMTP服务器
         $mail->SMTPAuth = true;                      // 允许 SMTP 认证
-        $mail->Username = '1021513892@qq.com';                // SMTP 用户名  即邮箱的用户名
-        $mail->Password = 'lcirxbwdtwjqbfdg';             // SMTP 密码  部分邮箱是授权码(例如163邮箱)
+        //$mail->Username = '1021513892@qq.com';                // SMTP 用户名  即邮箱的用户名
+//        $mail->Password = 'lcirxbwdtwjqbfdg';             // SMTP 密码  部分邮箱是授权码(例如163邮箱)
+        $mail->Username = 'leruge@163.com';                // SMTP 用户名  即邮箱的用户名
+        $mail->Password = 'Ai157511';             // SMTP 密码  部分邮箱是授权码(例如163邮箱)
+
         $mail->SMTPSecure = 'ssl';                    // 允许 TLS 或者ssl协议
         $mail->Port = 465;                            // 服务器端口 25 或者465 具体要看邮箱服务器支持
 
-            $mail->setFrom('1021513892@qq.com', '天空的雾');
+            $mail->setFrom('leruge@163.com', '天空的雾');
             $mail->addAddress($to);
         //$mail->addAddress('ellen@example.com');  // 可添加多个收件人
         //$mail->addReplyTo('xxxx@163.com', 'info'); //回复的时候回复给哪个邮箱 建议和发件人一致
@@ -45,7 +48,7 @@ function mailto($to,$title,$content){
             $mail->Subject = $title;
             $mail->Body    = $content;
 
-        $mail->send();
+
         return $mail->send();
     } catch (Exception $e) {
         exception($mail->ErrorInfo,1001);

@@ -15,25 +15,25 @@
 <div class="login-container">
     <div class="loginbox bg-white">
         <form>
-            <div class="loginbox-title">登录</div>
+            <div class="loginbox-title">忘记密码？</div>
 
             <div class="loginbox-or">
                 <div class="or-line"></div>
             </div>
             <div class="loginbox-textbox">
-                <input type="text" class="form-control" placeholder="用户名"  name="username" />
+                <input type="email" class="form-control" placeholder="输入注册邮箱"  name="email" />
             </div>
-            <div class="loginbox-textbox">
-                <input type="text" class="form-control" placeholder="密码" name="password" />
-            </div>
-            <div class="loginbox-forgot">
-                <a href="{:url('admin/index/forget')}">忘记密码?</a>
+            <div class="loginbox-textbox hidden">
+                <input type="text" class="form-control" placeholder="验证码"  name="code"/>
             </div>
             <div class="loginbox-submit">
-                <input type="submit" class="btn btn-primary btn-block" id="login" value="登录">
+                <input type="submit" class="btn btn-primary btn-block" id="sendCode" value="发送验证码">
+            </div>
+            <div class="loginbox-submit hidden">
+                <input type="submit" class="btn btn-primary btn-block" id="reset" value="重置密码">
             </div>
             <div class="loginbox-signup">
-                <a href="{:url('admin/index/register')}">注册账户</a>
+                <a href="{:url('admin/index/login')}">返回登录</a>
             </div>
         </form>
     </div>
@@ -62,9 +62,26 @@
 
     });
     $(function () {
-        $('#login').click(function () {
+        $('#sendCode').click(function () {
             $.ajax({
-                url:"{:url('admin/index/login')}",
+                url:"{:url('admin/index/forget')}",
+                type:'post',
+                data:$('form').serialize(),
+                dataType:'json',
+                success:function (data) {
+                    if (data.code==1){
+                        $('[name=email]').parent().addClass('hidden');
+                        $('[name=code]').parent().removeClass('hidden');
+                        $('#sendCode').parent().addClass('hidden');
+                        $('#reset').parent().removeClass('hidden');
+                    }
+                }
+            });
+            return false;
+        })
+        $('#reset').click(function () {
+            $.ajax({
+                url:"{:url('admin/index/reset')}",
                 type:'post',
                 data:$('form').serialize(),
                 dataType:'json',
@@ -78,7 +95,7 @@
                         );
                     }else {
                         layer.open({
-                            title:'登录失败',
+                            title:'密码重置失败',
                             content:data.msg,
                             icon:5,
                             anim:6

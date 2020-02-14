@@ -43,4 +43,36 @@ class Index extends Controller
         }
         return view();
     }
+    //重置密码发送验证码
+    public function forget()
+    {
+        if (request()->isAjax()){
+            $code=mt_rand(1000,9999);
+            session('code',$code);
+            $data=[
+                'email'=>input('post.email')
+            ];
+           $result= mailto(input('post.email'),'重置密码验证码','您的重置验证码是'.$code);
+           if ($result){
+               $this->success('验证码发送成功');
+           }else{
+               $this->error('验证码发送失败');
+           }
+        }
+        return view();
+    }
+
+    public function reset()
+    {
+        $data=[
+            'code'=>input('post.code'),
+            'email'=>input('post.email')
+        ];
+        $result=model('Admin')->reset($data);
+        if ($result==1){
+            $this->success('密码重置成功，请去邮箱查看密码','admin/index/login');
+        }else{
+            $this->error($result);
+        }
+    }
 }
