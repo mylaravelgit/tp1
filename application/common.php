@@ -24,8 +24,6 @@ function mailto($to,$title,$content){
         $mail->isSMTP();                             // 使用SMTP
         $mail->Host = 'smtp.163.com';                // SMTP服务器
         $mail->SMTPAuth = true;                      // 允许 SMTP 认证
-        //$mail->Username = '1021513892@qq.com';                // SMTP 用户名  即邮箱的用户名
-//        $mail->Password = 'lcirxbwdtwjqbfdg';             // SMTP 密码  部分邮箱是授权码(例如163邮箱)
         $mail->Username = 'leruge@163.com';                // SMTP 用户名  即邮箱的用户名
         $mail->Password = 'Ai157511';             // SMTP 密码  部分邮箱是授权码(例如163邮箱)
 
@@ -53,35 +51,6 @@ function mailto($to,$title,$content){
     } catch (Exception $e) {
         exception($mail->ErrorInfo,1001);
     }
-//$mail = new PHPMailer(true);
-//
-//try {
-//    //Server settings
-//
-//    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-//    $mail->isSMTP();                                            // Send using SMTP
-//    $mail->Host       = 'smtp.qq.com';                    // Set the SMTP server to send through
-//    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-//    $mail->Username   = '1021513892@qq.com';                     // SMTP username
-//    $mail->Password   = 'lcirxbwdtwjqbfdg';                               // SMTP password
-//    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-//    $mail->Port       = 465;                                    // TCP port to connect to
-//
-//
-//    //Recipients
-//    $mail->setFrom('1021513892@qq.com', '天空的雾');
-//    $mail->addAddress($to);     // Add a recipient
-//
-//
-//    // Content
-//    $mail->isHTML(true);                                  // Set email format to HTML
-//    $mail->Subject = $title;
-//    $mail->Body    = $content;
-//
-//    return $mail->send();
-//
-//} catch (Exception $e) {
-//    exception($mail->ErrorInfo,1001);
-//}
+
 
 }

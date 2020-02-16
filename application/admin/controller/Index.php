@@ -6,6 +6,13 @@ use think\Controller;
 
 class Index extends Controller
 {
+    //重新登录
+    public function initialize()
+    {
+        if (session('?admin.id')){
+            $this->redirect('admin/home/index');
+        }
+    }
     //后台登录
     public function login()
     {
