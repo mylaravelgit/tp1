@@ -54,3 +54,8 @@ function mailto($to,$title,$content){
 
 
 }
+
+//把span字符串替换成a
+function replace($data){
+    return str_replace('span','a',$data);
+}
