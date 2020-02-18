@@ -27,4 +27,5 @@ Route::group('admin', function () {
     Route::rule('logout','admin/home/logout','post');
     Route::rule('catelist','admin/cate/list','get');
     Route::rule('cateadd','admin/cate/add','get|post');
+    Route::rule('catesort','admin/cate/sort','post');
 });

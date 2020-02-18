@@ -27,4 +27,22 @@ class Cate extends Model
 
         return false ;
     }
+    //栏目排序
+    public function sort($data)
+    {
+        $validate=new \app\common\validate\Cate();
+        if (!$validate->scene('sort')->check($data)){
+            return $validate->getError();
+        }
+        $cateInfo=$this->find($data['id']);
+        $cateInfo->sort=$data['sort'];
+        $result=$cateInfo->save();
+        if ($result){
+            return 1;
+        }else{
+            return '排序失败';
+        }
+
+        return false ;
+    }
 }

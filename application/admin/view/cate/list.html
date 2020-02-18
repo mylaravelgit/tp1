@@ -43,8 +43,8 @@
                                     <tbody>
                                     {volist name="cates" id="vo"}
                                     <tr>
-                                        <td><input type="text" name="sort" value="{$vo.sort}" size="1"> </td>
-                                        <td>2</td>
+                                        <td><input type="text" name="sort" value="{$vo.sort}" size="1" dataid="{$vo.id}"> </td>
+                                        <td>{$vo.catename}</td>
                                         <td>
                                             <a href="#" class="btn btn-azure btn-xs">编辑</a>
                                             <a href="#" class="btn btn-danger btn-xs">删除</a>
@@ -71,7 +71,36 @@
 {include file="public/_js"/}
 <script>
     $(function () {
-        $('.pagination').addClass('pagination-sm')
+        $('.pagination').addClass('pagination-sm');
+
+
+        $('input[name=sort]').change(function () {
+            var id=$(this).attr('daftaid');
+            var sort=$(this).val();
+            $.ajax({
+                url:"{:url('admin/cate/sort')}",
+                type:'post',
+                data:{id:id,sort:sort},
+                dataType:'json',
+                success:function (data) {
+                    if (data.code==1){
+                        layer.msg(data.msg,{
+                            icon:6,
+                            time:2000
+                        },function () {
+                            location.href=data.url;
+                        })
+                    }else {
+                        layer.open({
+                            title:'排序失败',
+                            content:data.msg,
+                            icon:5,
+                            anim:6
+                        })
+                    }
+                }
+            })
+        })
     })
 </script>
 </body>

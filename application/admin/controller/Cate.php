@@ -35,4 +35,20 @@ class Cate extends Base
         }
         return view();
     }
+
+    //栏目排序
+    public function sort()
+    {
+        $data=[
+            'id'=>input('post.id'),
+            'sort'=>input('post.sort')
+        ];
+        $result=model('Cate')->sort($data);
+        if ($result==1){
+            $this->success('排序成功','admin/cate/list');
+        }else{
+            $this->error($result);
+        }
+        return view();
+    }
 }
