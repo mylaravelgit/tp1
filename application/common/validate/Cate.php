@@ -25,4 +25,9 @@ class Cate extends Validate
     {
         return $this->only(['sort']);
     }
+    //编辑场景
+    public function sceneEdit()
+    {
+        return $this->only(['catename']);
+    }
 }

@@ -51,4 +51,47 @@ class Cate extends Base
         }
         return view();
     }
+    //栏目编辑
+    public function edit()
+    {
+        if (request()->isAjax()){
+            $data=[
+                'id'=>input('post.id'),
+                'catename'=>input('post.catename')
+            ];
+            $result=model('Cate')->edit($data);
+            if ($result==1){
+                $this->success('栏目编辑成功','admin/cate/list');
+            }else{
+                $this->error($result);
+            }
+        }
+        $cateInfo=model('Cate')->find(input('id'));
+        //模板变量
+        $viewData=[
+            'cateInfo'=>$cateInfo
+        ];
+        $this->assign($viewData);
+        return view();
+    }
+
+    //栏目删除
+    public function del()
+    {
+        $cateInfo=model('Cate')->find(input('post.id'));
+        $result=$cateInfo->delete();
+            if ($result){
+                $this->success('栏目删除成功','admin/cate/list');
+            }else{
+                $this->error('栏目删除失败');
+            }
+
+        $cateInfo=model('Cate')->find(input('id'));
+        //模板变量
+        $viewData=[
+            'cateInfo'=>$cateInfo
+        ];
+        $this->assign($viewData);
+        return view();
+    }
 }

@@ -28,4 +28,6 @@ Route::group('admin', function () {
     Route::rule('catelist','admin/cate/list','get');
     Route::rule('cateadd','admin/cate/add','get|post');
     Route::rule('catesort','admin/cate/sort','post');
+    Route::rule('cateedit/[:id]','admin/cate/edit','get|post');
+    Route::rule('cateedit','admin/cate/del','post');
 });

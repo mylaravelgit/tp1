@@ -45,4 +45,22 @@ class Cate extends Model
 
         return false ;
     }
+    //栏目编辑
+    public function edit($data)
+    {
+        $validate=new \app\common\validate\Cate();
+        if (!$validate->scene('edit')->check($data)){
+            return $validate->getError();
+        }
+        $cateInfo=$this->find($data['id']);
+        $cateInfo->catename=$data['catename'];
+        $result=$cateInfo->save();
+        if ($result){
+            return 1;
+        }else{
+            return '栏目编辑失败';
+        }
+
+        return false ;
+    }
 }

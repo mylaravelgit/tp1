@@ -21,7 +21,7 @@
             <!-- /Page Breadcrumb -->
             <!-- Page Body -->
             <div class="page-body">
-                <a href="cateadd.html" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;栏目添加</a>
+                <a href="{:url('admin/cate/add'}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;栏目添加</a>
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="widget">
@@ -46,8 +46,8 @@
                                         <td><input type="text" name="sort" value="{$vo.sort}" size="1" dataid="{$vo.id}"> </td>
                                         <td>{$vo.catename}</td>
                                         <td>
-                                            <a href="#" class="btn btn-azure btn-xs">编辑</a>
-                                            <a href="#" class="btn btn-danger btn-xs">删除</a>
+                                            <a href="{:url('admin/cate/edit',['id'=>$vo.id])}" class="btn btn-azure btn-xs">编辑</a>
+                                            <a href="#" class="btn btn-danger btn-xs cate-del" dataid="{$vo.id}">删除</a>
                                         </td>
                                     </tr>
                                     {/volist}
@@ -75,7 +75,7 @@
 
 
         $('input[name=sort]').change(function () {
-            var id=$(this).attr('daftaid');
+            var id=$(this).attr('dataid');
             var sort=$(this).val();
             $.ajax({
                 url:"{:url('admin/cate/sort')}",
@@ -100,6 +100,40 @@
                     }
                 }
             })
+        })
+
+        $('.cate-del').click(function () {
+            var id=$(this).attr('dataid');
+            layer.confirm('确定删除吗？',{
+                title:'栏目删除',
+                icon:3
+            },function (index) {
+                layer.close(index);
+                $.ajax({
+                    url:"{:url('admin/cate/del')}",
+                    type:'post',
+                    data:{id:id},
+                    dataType:'json',
+                    success:function (data) {
+                        if (data.code==1){
+                            layer.msg(data.msg,{
+                                icon:6,
+                                time:2000
+                            },function () {
+                                location.href=data.url;
+                            })
+                        }else {
+                            layer.open({
+                                title:'删除失败',
+                                content:data.msg,
+                                icon:5,
+                                anim:6
+                            })
+                        }
+                    }
+                })
+            });
+
         })
     })
 </script>
