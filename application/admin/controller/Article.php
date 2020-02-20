@@ -7,11 +7,12 @@ use think\response\Json;
 use think\Db;
 class Article extends Base
 {
+
     //文章列表
     public function list()
 {
-    $articles=Db::table('tp_article')->select();
-//        $articles = model('Article')->order(['create_time' => 'desc'])->paginate(10);
+    $articles=Db::table('tp_article')->order('is_top', 'desc')->paginate(10);
+//        $articles = model('article')->order(['is_top' => 'desc'])->paginate(10);
     //$articles=model('Cate')->select();
     $viewData=[
         'articles'=>$articles
@@ -44,5 +45,21 @@ class Article extends Base
         ];
         $this->assign($viewData);
         return view();
+    }
+
+    //推荐
+    public function top()
+    {
+        $data=[
+            'id'=>input('post.id'),
+            'is_top'=>input('post.is_top')?0:1
+        ];
+        $result=model('Article')->top($data);
+        if ($result==1){
+            $this->success('操作成功','admin/article/list');
+        }else{
+            $this->error($result);
+        }
+
     }
 }

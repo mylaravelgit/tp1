@@ -30,7 +30,8 @@ Route::group('admin', function () {
     Route::rule('catesort','admin/cate/sort','post');
     Route::rule('cateedit/[:id]','admin/cate/edit','get|post');
     Route::rule('cateedit','admin/cate/del','post');
-    Route::rule('articlelist','admin/article/list','get|post');
+    Route::rule('articlelist','admin/article/list','get');
     Route::rule('articleadd','admin/article/add','get|post');
+    Route::rule('articletop','admin/article/top','post');
 
 });
