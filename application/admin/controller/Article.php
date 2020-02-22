@@ -3,20 +3,25 @@
 namespace app\admin\controller;
 
 use think\Controller;
-use think\response\Json;
 use think\Db;
+use app\common\model\Article as ArticleModel;
 class Article extends Base
 {
 
     //文章列表
     public function list()
 {
-    $articles=Db::table('tp_article')->order('is_top', 'desc')->paginate(10);
+    $articles=Db::table('tp_article')
+        ->join('tp_cate','tp_cate.id=tp_article.cate_id')
+//        ->field('tp_article.id,tp_article.title,tp_article.is_top,tp_cate.catename')
+        ->order('is_top', 'desc')
+        ->paginate(10);
 //        $articles = model('article')->order(['is_top' => 'desc'])->paginate(10);
     //$articles=model('Cate')->select();
     $viewData=[
         'articles'=>$articles
     ];
+//    dump($viewData);
     $this->assign($viewData);
     return view();
 }
@@ -62,4 +67,35 @@ class Article extends Base
         }
 
     }
+
+    //编辑文章
+    public function edit(){
+        if (request()->isAjax()){
+            $data=[
+                'id'=>input('post.id'),
+                'title'=>input('post.title'),
+                'tags'=>input('post.tags'),
+                'is_top'=>input('post.is_top','0'),
+                'cate_id'=>input('post.cateid'),
+                'desc'=>input('post.desc'),
+                'content'=>input('post.content'),
+            ];
+
+            $result=model('Article')->edit($data);
+            if ($result==1){
+                $this->success('文章编辑成功','admin/article/list');
+            }else{
+                $this->error($result);
+            }
+        }
+
+         $articleInfo=model('Article')->find(input('id'));
+         $cates=model('Cate')->select();
+         $vaewData=[
+             'articleInfo'=>$articleInfo,
+            'cates'=>$cates
+         ];
+           $this->assign($vaewData);
+           return view();
+        }
 }

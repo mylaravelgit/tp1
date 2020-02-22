@@ -2,14 +2,21 @@
 
 namespace app\common\model;
 
-use think\Db;
 use think\Model;
 use think\model\concern\SoftDelete;
+use think\Db;
+
 
 class Article extends Model
 {
     //
     use SoftDelete;
+
+    //关联栏目表
+    public function cate()
+    {
+        return $this->belongsTo('Cate','cate_id','id');
+    }
 
     public function add($data)
     {
@@ -42,6 +49,29 @@ class Article extends Model
             return 1;
         }else{
             return '操作失败';
+        }
+    }
+
+    //编辑
+    public function edit($data)
+    {
+        $validata=new \app\common\validate\Article();
+        if (!$validata->scene('edit')->check($data)){
+            return $validata->getError();
+        }
+        $articleInfo=$this->find($data['id']);
+        $articleInfo->title=$data['title'];
+        $articleInfo->tags=$data['tags'];
+        $articleInfo->is_top=$data['is_top'];
+        $articleInfo->cate_id=$data['cate_id'];
+        $articleInfo->desc=$data['desc'];
+        $articleInfo->content=$data['content'];
+
+        $result= $articleInfo->save($data);
+        if ($result){
+            return 1;
+        }else{
+            return '文章编辑失败';
         }
     }
 }

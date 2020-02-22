@@ -34,4 +34,6 @@ Route::group('admin', function () {
     Route::rule('articleadd','admin/article/add','get|post');
     Route::rule('articletop','admin/article/top','post');
 
+    Route::rule('articleedit/[:id]','admin/article/edit','get|post');
+
 });

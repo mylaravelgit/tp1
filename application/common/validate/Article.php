@@ -21,17 +21,16 @@ class Article extends Validate
     {
         return $this->only(['title','tags','cate_id','desc','content']);
     }
-    public function sceneEdit()
-    {
-        return $this->only(['title', 'cate_id', 'tags', 'desc', 'content']);
-    }
-    public function sceneList()
-    {
-        return $this->only(['title', 'cate_id', 'tags', 'desc', 'content']);
-    }
+
+
     //推荐场景
     public function sceneTop()
     {
         return $this->only(['is_top']);
+    }
+
+    public function sceneEdit()
+    {
+        return $this->only(['title','tags','is_top','cate_id','desc','content']);
     }
 }
