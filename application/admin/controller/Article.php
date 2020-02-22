@@ -11,12 +11,12 @@ class Article extends Base
     //文章列表
     public function list()
 {
-    $articles=Db::table('tp_article')
-        ->join('tp_cate','tp_cate.id=tp_article.cate_id')
-//        ->field('tp_article.id,tp_article.title,tp_article.is_top,tp_cate.catename')
-        ->order('is_top', 'desc')
-        ->paginate(10);
-//        $articles = model('article')->order(['is_top' => 'desc'])->paginate(10);
+//    $articles=Db::table('tp_article')
+//        ->join('tp_cate','tp_cate.id=tp_article.cate_id')
+////        ->field('tp_article.id,tp_article.title,tp_article.is_top,tp_cate.catename')
+//        ->order('is_top', 'desc')
+//        ->paginate(10);
+        $articles = model('article')->with('cate')->order(['is_top' => 'desc'])->paginate(10);
     //$articles=model('Cate')->select();
     $viewData=[
         'articles'=>$articles
@@ -98,4 +98,18 @@ class Article extends Base
            $this->assign($vaewData);
            return view();
         }
+
+        //删除文章
+    public function del()
+    {
+        $articleInfo=model('Article')
+            ->find(input('post.id'));
+
+        $result=$articleInfo->delete();
+        if ($result){
+            $this->success('文章删除成功','admin/article/list');
+        }else{
+            $this->error('文章删除失败');
+        }
+    }
 }
