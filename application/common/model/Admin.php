@@ -76,4 +76,21 @@ class Admin extends Model
             return '重置密码失败！';
         }
     }
+
+    //添加管理员
+    public function add($data)
+    {
+        $validate=new \app\common\validate\Admin();
+        if (!$validate->scene('add')->check($data)){
+            return $validate->getError();
+        }
+        $result=$this->allowField(true)->save($data);
+//        $result = $this->where($data)->find();
+        if ($result){
+//
+            return 1;
+        }else{
+            return '用户名或者密码错误';
+        }
+    }
 }

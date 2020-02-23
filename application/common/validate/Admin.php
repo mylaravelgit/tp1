@@ -33,4 +33,10 @@ class Admin extends Validate
     {
         return $this->only(['code']);
     }
+    //重置密码验证场景
+    public function sceneAdd()
+    {
+        return $this->only(['username','password','conpass','nickname','email'])
+            ->append('username','unique:admin');
+    }
 }

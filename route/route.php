@@ -25,22 +25,26 @@ Route::group('admin', function () {
     Route::rule('reset','admin/index/reset','post');
     Route::rule('index','admin/home/index','get');
     Route::rule('logout','admin/home/logout','post');
+    //栏目
     Route::rule('catelist','admin/cate/list','get');
     Route::rule('cateadd','admin/cate/add','get|post');
     Route::rule('catesort','admin/cate/sort','post');
     Route::rule('cateedit/[:id]','admin/cate/edit','get|post');
     Route::rule('cateedit','admin/cate/del','post');
+    //文章
     Route::rule('articlelist','admin/article/list','get');
     Route::rule('articleadd','admin/article/add','get|post');
     Route::rule('articletop','admin/article/top','post');
-
     Route::rule('articleedit/[:id]','admin/article/edit','get|post');
     Route::rule('articledel','admin/article/del','post');
-
+    //会员
     Route::rule('memberlist','admin/member/all','get');
     Route::rule('memberadd','admin/member/add','get|post');
     Route::rule('memberedit/[:id]','admin/member/edit','get|post');
     Route::rule('memberdel','admin/member/del','post');
-
+    //管理员
+    Route::rule('adminlist','admin/admin/all','get');
+    Route::rule('adminadd','admin/admin/add','get|post');
+    Route::rule('adminstatus','admin/admin/status','post');
 
 });
