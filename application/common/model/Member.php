@@ -26,7 +26,31 @@ class Member extends Model
             return 1;
 
         }else{
-            return ' 栏目添加失败';
+            return ' 会员添加失败';
+        }
+
+        return false ;
+    }
+
+    //会员编辑
+    public function edit($data)
+    {
+        $validate=new \app\common\validate\Member();
+        if (!$validate->scene('edit')->check($data)){
+            return $validate->getError();
+        }
+        $memberInfo=$this->find($data['id']);
+        if ($data['oldpass']!=$memberInfo['password']){
+            return '原密码不正确';
+        }
+        $memberInfo->password=$data['newpass'];
+        $memberInfo->nickname=$data['nickname'];
+
+        $result=$memberInfo->save();
+        if ($result){
+            return 1;
+        }else{
+            return ' 会员编辑失败';
         }
 
         return false ;

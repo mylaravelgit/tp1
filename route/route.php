@@ -39,5 +39,8 @@ Route::group('admin', function () {
 
     Route::rule('memberlist','admin/member/all','get');
     Route::rule('memberadd','admin/member/add','get|post');
+    Route::rule('memberedit/[:id]','admin/member/edit','get|post');
+    Route::rule('memberdel','admin/member/del','post');
+
 
 });

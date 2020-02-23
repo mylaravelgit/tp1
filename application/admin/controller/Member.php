@@ -39,4 +39,40 @@ class Member extends Base
         }
         return view();
     }
+
+    public function edit()
+    {
+        if (request()->isAjax()){
+            $data=[
+                'id'=>input('post.id'),
+                'oldpass'=>input('post.oldpass'),
+                'newpass'=>input('post.newpass'),
+                'nickname'=>input('post.nickname'),
+            ];
+            $result=model('Member')->edit($data);
+            if ($result==1){
+                $this->success('会员修改成功','admin/member/all');
+            }else{
+                $this->error($result);
+            }
+        }
+        $memerInfo=model('Member')->find(input('id'));
+        $viewData=[
+            'memberInfo'=>$memerInfo
+        ];
+        $this->assign($viewData);
+        return view();
+    }
+    
+    //会员删除
+    public function del()
+    {
+        $memberInfo=model('Member')->find(input('post.id'));
+        $result=$memberInfo->delete();
+        if ($result){
+            $this->success('会员删除成功！','admin/member/all');
+        }else{
+            $this->error('会员删除失败！');
+        }
+    }
 }
