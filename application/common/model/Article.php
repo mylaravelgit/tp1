@@ -17,6 +17,11 @@ class Article extends Model
     {
         return $this->belongsTo('Cate','cate_id','id');
     }
+    //关联用户
+    public function comments()
+    {
+        return $this->hasMany('Comment','article_id','id');
+    }
 
     public function add($data)
     {

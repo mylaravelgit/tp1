@@ -52,4 +52,6 @@ Route::group('admin', function () {
     Route::rule('comment','admin/comment/all','get');
     Route::rule('commentdel','admin/comment/del','post');
 
+    //系统设置
+    Route::rule('set','admin/system/set','get|post');
 });

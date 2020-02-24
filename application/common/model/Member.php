@@ -14,6 +14,12 @@ class Member extends Model
     //只读字段
     protected $readonly=['username','email'];
 
+    //关联评论
+    public function comments()
+    {
+        return $this->hasMany('Comment','member_id','id');
+    }
+
     //会员添加
     public function add($data)
     {
