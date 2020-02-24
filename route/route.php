@@ -48,5 +48,8 @@ Route::group('admin', function () {
     Route::rule('adminstatus','admin/admin/status','post');
     Route::rule('adminedit/[:id]','admin/admin/edit','get|post');
     Route::rule('admindel','admin/admin/del','post');
+    //评论
+    Route::rule('comment','admin/comment/all','get');
+    Route::rule('commentdel','admin/comment/del','post');
 
 });
