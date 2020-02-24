@@ -9,15 +9,13 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-//Route::get('think', function () {
-//    return 'hello,ThinkPHP5!';
-//});
-//
-//Route::get('hello/:name', 'index/hello');
-//
-//return [
-//
-//];
+//前台路由
+Route::rule('cate/:id','index/index/index','get');
+Route::rule('/','index/index/index','get');
+Route::rule('article-<:id>','index/article/info','get');
+
+
+//后台路由
 Route::group('admin', function () {
     Route::rule('/','admin/index/login','get|post');
     Route::rule('register','admin/index/register','get|post');
