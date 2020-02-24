@@ -29,7 +29,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">登录</a></li>
-                <li><a href="#">注册</a></li>
+                <li><a href="{:url('index/index/register')}">注册</a></li>
                 <li><a href="#">投稿</a></li>
             </ul>
             <form action="#" class="navbar-form navbar-right">
@@ -48,12 +48,14 @@
 
     {/block}
 </div>
+{block name="footer"}
 <div class="footer">
     <p>Copyright 2018 <a href="#">{$webInfo.copyright}</a> All Rights Reserved</p>
 </div>
-
+{/block}
 <script src="/static/index/js/jquery-3.3.1.min.js"></script>
 <script src="/static/index/js/bootstrap.min.js"></script>
+<!--{__black__}  引用{black}原来的数据-->
 {block name="js"}
 {/block}
 </body>

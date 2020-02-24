@@ -23,5 +23,10 @@ class Index extends  Base
         return view();
     }
 
+    //注册
+    public function register()
+    {
+        return view();
+    }
 
 }

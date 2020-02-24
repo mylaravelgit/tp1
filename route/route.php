@@ -12,7 +12,8 @@
 //前台路由
 Route::rule('cate/:id','index/index/index','get');
 Route::rule('/','index/index/index','get');
-Route::rule('article-<:id>','index/article/info','get');
+Route::rule('article-:id','index/article/info','get');
+Route::rule('register','index/index/register','get|post');
 
 
 //后台路由
