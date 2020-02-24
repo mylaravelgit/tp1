@@ -39,6 +39,7 @@ class Admin extends Base
         return view();
     }
 
+    //状态操作
     public function status()
     {
         $data=[
@@ -52,6 +53,43 @@ class Admin extends Base
             $this->success('操作成功','admin/admin/all');
         }else{
             $this->error('操作失败');
+        }
+    }
+
+    //编辑
+    public function edit()
+    {
+        if (request()->isAjax()){
+            $data=[
+                'id'=>input('post.id'),
+                'oldpass'=>input('post.oldpass'),
+                'newpass'=>input('post.newpass'),
+                'nickname'=>input('post.nickname'),
+            ];
+            $result=model('Admin')->edit($data);
+            if ($result==1){
+                $this->success('管理员修改成功','admin/admin/all');
+            }else{
+                $this->error($result);
+            }
+        }
+        $adminInfo=model('Admin')->find(input('id'));
+        $viewData=[
+            'adminInfo'=>$adminInfo,
+        ];
+        $this->assign($viewData);
+        return view();
+    }
+
+    //删除
+    public function del()
+    {
+        $adminInfo=model('Admin')->find(input('post.id'));
+        $result=$adminInfo->delete();
+        if ($result){
+            $this->success('删除成功','admin/admin/all');
+        }else{
+            $this->error('删除失败！');
         }
     }
 }

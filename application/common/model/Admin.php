@@ -93,4 +93,28 @@ class Admin extends Model
             return '用户名或者密码错误';
         }
     }
+
+    //编辑管理员
+    public function edit($data)
+    {
+        $validate=new \app\common\validate\Admin();
+        if (!$validate->scene('edit')->check($data)){
+            return $validate->getError();
+        }
+        $adminInfo=$this->find($data['id']);
+        if ($data['oldpass']!=$adminInfo['password']){
+            return '原密码不正确';
+        }
+        $adminInfo->password=$data['newpass'];
+        $adminInfo->nickname=$data['nickname'];
+
+        $result=$adminInfo->save();
+        if ($result){
+            return 1;
+        }else{
+            return '管理员编辑失败';
+        }
+
+        return false ;
+    }
 }

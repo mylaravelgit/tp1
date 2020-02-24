@@ -46,5 +46,7 @@ Route::group('admin', function () {
     Route::rule('adminlist','admin/admin/all','get');
     Route::rule('adminadd','admin/admin/add','get|post');
     Route::rule('adminstatus','admin/admin/status','post');
+    Route::rule('adminedit/[:id]','admin/admin/edit','get|post');
+    Route::rule('admindel','admin/admin/del','post');
 
 });
