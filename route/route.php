@@ -14,6 +14,11 @@ Route::rule('cate/:id','index/index/index','get');
 Route::rule('/','index/index/index','get');
 Route::rule('article-:id','index/article/info','get');
 Route::rule('register','index/index/register','get|post');
+Route::rule('login','index/index/login','get|post');
+Route::rule('login','index/index/login','get|post');
+Route::rule('logout','index/index/logout','post');
+Route::rule('search','index/index/search','get');
+Route::rule('comment','index/article/comm','post');
 
 
 //后台路由

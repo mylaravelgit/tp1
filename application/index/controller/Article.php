@@ -17,4 +17,20 @@ class Article extends Base
         $this->assign($viewData);
         return view();
     }
+    
+    //文章评论
+    public function comm()
+    {
+        $data=[
+            'article_id'=>input('post.article_id'),
+            'member_id'=>input('post.member_id'),
+            'content'=>input('post.content'),
+        ];
+        $result=model('Comment')->comm($data);
+        if ($result==1){
+            $this->success('评论成功');
+        }else{
+            $this->error($result);
+        }
+    }
 }
